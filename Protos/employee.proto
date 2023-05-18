@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "EmployeeGrpc";
+
+package tutorial.employee;
+
+// The greeting service definition.
+service EmployeeStub {
+  // All method goes here
+  rpc AddEmployee (EmployeeCreationRequest) returns (EmployeeCreationResponse);
+}
+
+// The request message containing the user's name.
+message EmployeeCreationRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message EmployeeCreationResponse {
+  string message = 1;
+}
