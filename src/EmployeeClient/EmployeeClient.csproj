@@ -15,9 +15,17 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
         <Protobuf Include="..\..\Protos\employee.proto" GrpcServices="Client" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="employees.json" />
+      <Resource Include="employees.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 </Project>
