@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option csharp_namespace = "EmployeeGrpc";
+
+import "google/protobuf/empty.proto";
+package tutorial.employee;
+
+service EmployeeStub {
+  rpc AddEmployee (EmployeeCreationRequest) returns (EmployeeCreationResponse);
+  rpc CreateEmployeeAsStreamAndGetMedianAge (stream EmployeeCreationRequest) returns (MedianAgeResponse);
+  rpc CreateEmployeeAsStreamAndGetMedianAgeAsStream (stream EmployeeCreationRequest) returns (stream MedianAgeResponse);
+  rpc GetMedianAge (google.protobuf.Empty) returns (MedianAgeResponse);
+}
+
+message EmployeeCreationRequest {
+    string firstName = 1;
+    string lastName = 2;
+    string gender = 3;
+    string birthday = 4;
+}
+
+
+
+// The response message containing the greetings.
+message EmployeeCreationResponse {
+    int32 id = 1;
+}
+
+message MedianAgeResponse {
+    int32 Age = 1;
+}

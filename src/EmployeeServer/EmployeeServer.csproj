@@ -12,7 +12,7 @@
         <PackageReference Include="Grpc.AspNetCore" Version="2.53.0" />
     </ItemGroup>
     <ItemGroup>
-        <Protobuf Include="..\..\Protos\employee.proto" GrpcServices="Server" />
+        <Protobuf Include="Protos\employee.proto" GrpcServices="Server" />
     </ItemGroup>
 
     
