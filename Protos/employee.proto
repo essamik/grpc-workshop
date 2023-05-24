@@ -6,10 +6,19 @@ import "google/protobuf/empty.proto";
 package tutorial.employee;
 
 service EmployeeStub {
+  rpc SendMessage (MessageRequest) returns (MessageResponse);
   rpc AddEmployee (EmployeeCreationRequest) returns (EmployeeCreationResponse);
   rpc CreateEmployeeAsStreamAndGetMedianAge (stream EmployeeCreationRequest) returns (MedianAgeResponse);
   rpc CreateEmployeeAsStreamAndGetMedianAgeAsStream (stream EmployeeCreationRequest) returns (stream MedianAgeResponse);
   rpc GetMedianAge (google.protobuf.Empty) returns (MedianAgeResponse);
+}
+
+message MessageRequest {
+  string text = 1;
+}
+
+message MessageResponse {
+  string text = 1;
 }
 
 message EmployeeCreationRequest {
@@ -19,9 +28,6 @@ message EmployeeCreationRequest {
     string birthday = 4;
 }
 
-
-
-// The response message containing the greetings.
 message EmployeeCreationResponse {
     int32 id = 1;
 }
