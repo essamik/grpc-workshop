@@ -4,18 +4,18 @@ option csharp_namespace = "EmployeeGrpc";
 
 package tutorial.employee;
 
-// The greeting service definition.
+// The EmployeeStub service definition.
 service EmployeeStub {
-  // All method goes here
+  // Send a message as unary function
   rpc SendMessage (MessageRequest) returns (MessageResponse);
 }
 
-// The request message containing the user's name.
+// The request message containing a text
 message MessageRequest {
   string text = 1;
 }
 
-// The response message containing the greetings.
+// The response message containing the text processed by the server.
 message MessageResponse {
   string text = 1;
 }
