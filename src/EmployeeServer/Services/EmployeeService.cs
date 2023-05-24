@@ -7,40 +7,33 @@ namespace EmployeeServer.Services;
 
 public class EmployeeService : EmployeeStub.EmployeeStubBase
 {
-    private static List<EmployeeCreationRequest> employees;
-    private static List<int> ages;
     private readonly ILogger<EmployeeService> logger;
-    public EmployeeService(ILogger<EmployeeService> logger)
+    private readonly InMemoryCache cache;
+
+    public EmployeeService(ILogger<EmployeeService> logger, InMemoryCache cache)
     {
         this.logger = logger;
-        if (employees == null)
-        {
-            employees = new List<EmployeeCreationRequest>();
-        }
-        if (ages == null)
-        {
-            ages = new List<int>();
-        }
+        this.cache = cache;
     }
     public override Task<EmployeeCreationResponse> AddEmployee(EmployeeCreationRequest employee, ServerCallContext context)
     {
         HandleEmployeeCreationRequest(employee);
         return Task.FromResult(new EmployeeCreationResponse
         {
-            Id = employees.Count
+            Id = cache.Employees.Count
         });
     }
 
     private void HandleEmployeeCreationRequest(EmployeeCreationRequest employee)
     {
-        employees.Add(employee);
+        cache.Employees.Add(employee);
         if (!string.IsNullOrEmpty(employee.Birthday))
         {
             DateTime birthDate = DateTime.Parse(employee.Birthday);
             DateTime currentDate = DateTime.Now;
 
             var age = currentDate.Year - birthDate.Year;
-            ages.Add(age);
+            cache.Ages.Add(age);
         }
 
         logger.LogInformation("New Employee added");
@@ -50,7 +43,7 @@ public class EmployeeService : EmployeeStub.EmployeeStubBase
     {
         return Task.FromResult(new MedianAgeResponse
         {
-            Age = ComputeMedianAge(ages)
+            Age = ComputeMedianAge(cache.Ages)
         });
     }
 
@@ -85,7 +78,7 @@ public class EmployeeService : EmployeeStub.EmployeeStubBase
 
         return new MedianAgeResponse
         {
-            Age = ComputeMedianAge(ages)
+            Age = ComputeMedianAge(cache.Ages)
         };
     }
 
@@ -99,7 +92,7 @@ public class EmployeeService : EmployeeStub.EmployeeStubBase
 
             await responseStream.WriteAsync(new MedianAgeResponse
             {
-                Age = ComputeMedianAge(ages)
+                Age = ComputeMedianAge(cache.Ages)
             });
         }
     }

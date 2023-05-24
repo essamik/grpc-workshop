@@ -1,29 +1,19 @@
-﻿using EmployeeGrpc;
+﻿using EmployeeClient;
+using EmployeeGrpc;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Net.Client;
-using Newtonsoft.Json;
 
-var employees = LoadEmployees();
+var employees = EmployeesLoader.LoadEmployees();
 
 // The port number must match the port of the gRPC server.
 using var channel = GrpcChannel.ForAddress("http://localhost:5000");
 var client = new EmployeeStub.EmployeeStubClient(channel);
 
-// await UnaryCall(employees, client);
+await UnaryCall(employees, client);
 
 // await ClientStreamingCall(client, employees);
 
-await BiDirectionalStreamingCall(client, employees);
-
-List<EmployeeCreationRequest> LoadEmployees()
-{
-    var jsonString = File.ReadAllText("employees.json");
-    return JsonConvert.DeserializeObject<List<EmployeeCreationRequest>>(jsonString,
-        new JsonSerializerSettings
-        {
-            NullValueHandling = NullValueHandling.Ignore
-        })!;
-}
+// await BiDirectionalStreamingCall(client, employees);
 
 async Task UnaryCall(List<EmployeeCreationRequest> employeeCreationRequests, EmployeeStub.EmployeeStubClient employeeStubClient)
 {
