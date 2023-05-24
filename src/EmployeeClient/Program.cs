@@ -7,7 +7,7 @@ var client = new EmployeeStub.EmployeeStubClient(channel);
 
 Console.WriteLine("Sending EmployeeCreationRequest to server...");
 
-var reply = await client.AddEmployeeAsync(
-    new EmployeeCreationRequest() { Name = "Hello world" });
+var reply = await client.SendMessageAsync(
+    new MessageRequest() { Text = "Hello world" });
 
-Console.WriteLine("Response from server: " + reply.Message);
+Console.WriteLine("Response from server: " + reply.Text);

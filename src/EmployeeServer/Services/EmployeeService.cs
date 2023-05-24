@@ -11,12 +11,13 @@ public class EmployeeService : EmployeeStub.EmployeeStubBase
     {
         this.logger = logger;
     }
-    public override Task<EmployeeCreationResponse> AddEmployee(EmployeeCreationRequest request, ServerCallContext context)
+
+    public override Task<MessageResponse> SendMessage(MessageRequest request, ServerCallContext context)
     {
-        logger.LogInformation("EmployeeCreationRequest received");
-        return Task.FromResult(new EmployeeCreationResponse
+        logger.LogInformation("Message received");
+        return Task.FromResult(new MessageResponse()
         {
-            Message = request.Name + " successfully created"
+            Text = "Response to " + request.Text
         });
     }
 }

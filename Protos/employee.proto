@@ -7,15 +7,15 @@ package tutorial.employee;
 // The greeting service definition.
 service EmployeeStub {
   // All method goes here
-  rpc AddEmployee (EmployeeCreationRequest) returns (EmployeeCreationResponse);
+  rpc SendMessage (MessageRequest) returns (MessageResponse);
 }
 
 // The request message containing the user's name.
-message EmployeeCreationRequest {
-  string name = 1;
+message MessageRequest {
+  string text = 1;
 }
 
 // The response message containing the greetings.
-message EmployeeCreationResponse {
-  string message = 1;
+message MessageResponse {
+  string text = 1;
 }
