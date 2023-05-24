@@ -6,16 +6,17 @@ namespace EmployeeServer.Services;
 
 public class EmployeeService : EmployeeStub.EmployeeStubBase
 {
-    private readonly ILogger<EmployeeService> _logger;
+    private readonly ILogger<EmployeeService> logger;
     public EmployeeService(ILogger<EmployeeService> logger)
     {
-        _logger = logger;
+        this.logger = logger;
     }
     public override Task<EmployeeCreationResponse> AddEmployee(EmployeeCreationRequest request, ServerCallContext context)
     {
+        logger.LogInformation("EmployeeCreationRequest received");
         return Task.FromResult(new EmployeeCreationResponse
         {
-            Message = "Hello " + request.Name
+            Message = request.Name + " successfully created"
         });
     }
 }
