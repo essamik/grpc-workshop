@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="employees.json" />
       <Resource Include="employees.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>

@@ -67,33 +67,4 @@ public class EmployeeService : EmployeeStub.EmployeeStubBase
 
         return median;
     }
-
-    public override async Task<MedianAgeResponse> CreateEmployeeAsStreamAndGetMedianAge(IAsyncStreamReader<EmployeeCreationRequest> requestStream, ServerCallContext context)
-    {
-        while (await requestStream.MoveNext())
-        {
-            var employee = requestStream.Current;
-            HandleEmployeeCreationRequest(employee);
-        }
-
-        return new MedianAgeResponse
-        {
-            Age = ComputeMedianAge(cache.Ages)
-        };
-    }
-
-    public override async Task CreateEmployeeAsStreamAndGetMedianAgeAsStream(IAsyncStreamReader<EmployeeCreationRequest> requestStream, IServerStreamWriter<MedianAgeResponse> responseStream,
-        ServerCallContext context)
-    {
-        while (await requestStream.MoveNext())
-        {
-            var employee = requestStream.Current;
-            HandleEmployeeCreationRequest(employee);
-
-            await responseStream.WriteAsync(new MedianAgeResponse
-            {
-                Age = ComputeMedianAge(cache.Ages)
-            });
-        }
-    }
 }

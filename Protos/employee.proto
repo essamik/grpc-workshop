@@ -8,8 +8,6 @@ package tutorial.employee;
 service EmployeeStub {
   rpc SendMessage (MessageRequest) returns (MessageResponse);
   rpc AddEmployee (EmployeeCreationRequest) returns (EmployeeCreationResponse);
-  rpc CreateEmployeeAsStreamAndGetMedianAge (stream EmployeeCreationRequest) returns (MedianAgeResponse);
-  rpc CreateEmployeeAsStreamAndGetMedianAgeAsStream (stream EmployeeCreationRequest) returns (stream MedianAgeResponse);
   rpc GetMedianAge (google.protobuf.Empty) returns (MedianAgeResponse);
 }
 
